@@ -1,0 +1,37 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "PostgreSQLInstance": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "AllocatedStorage": "20",
+        "DBInstanceClass": "db.t3.micro",
+        "DBInstanceIdentifier": "postgres",
+        "Engine": "postgres",
+        "EngineVersion": "13.3",
+        "MasterUsername": "mypostgres",
+        "MasterUserPassword": "password",
+        "DBName": "mypostgres",
+        "VPCSecurityGroups": [
+          "sg-0a83a506e3549a0e0"
+        ],
+        "MultiAZ": false,
+        "PubliclyAccessible": false
+      }
+    }
+  },
+  "Outputs": {
+    "PostgreSQLEndpoint": {
+      "Value": {
+        "Fn::GetAtt": [
+          "PostgreSQLInstance",
+          "Endpoint.Address"
+        ]
+      },
+      "Export": {
+        "Name": "PostgreSQLEndpoint"
+      },
+      "Description": "The endpoint address of the PostgreSQL instance"
+    }
+  }
+}
